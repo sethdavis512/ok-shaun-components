@@ -12,7 +12,7 @@ export default defineConfig({
             tsconfigPath: './tsconfig.app.json'
         })
     ],
-    base: '/ok-shaun-components/',
+    base: '/ok-shaun-components',
     build: {
         lib: {
             name: 'okShaunComponents',
