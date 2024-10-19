@@ -10,7 +10,7 @@ const Flex = styled.div`
 export default function App() {
     return (
         <>
-            <h1>Sandbox</h1>
+            <h1>OK Shaun Componentz</h1>
             <Flex>
                 {Array(3)
                     .fill(null)
