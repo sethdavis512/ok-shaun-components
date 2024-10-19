@@ -13,21 +13,25 @@ export default defineConfig({
         })
     ],
     base: '/ok-shaun-components',
-    build: {
-        lib: {
-            name: 'okShaunComponents',
-            fileName: (format) => `ok-shaun-components.${format}.js`,
-            entry: './lib/main.ts',
-            formats: ['es', 'cjs', 'umd']
-        },
-        rollupOptions: {
-            external: ['react', 'react-dom', 'react/jsx-runtime'],
-            output: {
-                globals: {
-                    react: 'React',
-                    'react-dom': 'ReactDOM'
-                }
-            }
-        }
-    }
+    ...(process.env.GH_REPO
+        ? {}
+        : {
+              build: {
+                  lib: {
+                      name: 'okShaunComponents',
+                      fileName: (format) => `ok-shaun-components.${format}.js`,
+                      entry: './lib/main.ts',
+                      formats: ['es', 'cjs', 'umd']
+                  },
+                  rollupOptions: {
+                      external: ['react', 'react-dom', 'react/jsx-runtime'],
+                      output: {
+                          globals: {
+                              react: 'React',
+                              'react-dom': 'ReactDOM'
+                          }
+                      }
+                  }
+              }
+          })
 });
