@@ -1,37 +1,40 @@
-/** @jsxImportSource @emotion/react */
-import { css, Theme } from "@emotion/react";
-import * as React from "react";
+import { style } from '@vanilla-extract/css';
+import * as React from 'react';
+import { sprinkles } from '~/styles/sprinkles.css';
 
-export interface BoxProps extends React.HTMLAttributes<HTMLDivElement> {
+export const boxStyles = sprinkles({
+  minWidth: 0,
+});
+
+export const flexStyles = style([
+  boxStyles,
+  sprinkles({
+    display: 'flex',
+    gap: 16,
+  }),
+]);
+
+export const flexColumnStyles = style([
+  flexStyles,
+  sprinkles({
+    flexDirection: 'column',
+  }),
+]);
+
+export interface BoxProps {
   as?: React.ElementType;
 }
 
-const boxStyles = (theme: Theme) => css`
-  min-width: 0;
-  padding: ${theme.size[16]};
-`;
+const Box = ({ as: Component = 'div', ...props }: BoxProps) => {
+  return <Component css={boxStyles} {...props} />;
+};
 
-const flexStyles = (theme: Theme) => css`
-  display: flex;
-  gap: ${theme.size[16]};
-`;
+const Flex = ({ as: Component = 'div', ...props }: BoxProps) => {
+  return <Component css={[boxStyles, flexStyles]} {...props} />;
+};
 
-const flexColumnStyles = css`
-  flex-direction: column;
-`;
-
-const Box = React.forwardRef<HTMLDivElement, BoxProps>(
-  ({ as: Component = "div", ...props }, ref) => {
-    return <Component ref={ref} css={boxStyles} {...props} />;
-  }
-);
-
-const Flex = React.forwardRef<HTMLDivElement, BoxProps>((props, ref) => (
-  <Box ref={ref} css={flexStyles} {...props} />
-));
-
-const FlexColumn = React.forwardRef<HTMLDivElement, BoxProps>((props, ref) => (
-  <Box ref={ref} css={[flexStyles, flexColumnStyles]} {...props} />
-));
+const FlexColumn = ({ as: Component = 'div', ...props }: BoxProps) => {
+  return <Component css={[flexStyles, flexColumnStyles]} {...props} />;
+};
 
 export { Box, Flex, FlexColumn };
