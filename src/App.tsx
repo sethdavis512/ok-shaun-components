@@ -1,11 +1,8 @@
-import styled from "@emotion/styled";
-import Button from "./components/Button";
-import Card from "./components/Card";
-
-const Flex = styled.div`
-  display: flex;
-  gap: 1rem;
-`;
+/** @jsxImportSource @emotion/react */
+import { Button } from "~/components/Button";
+// import { Card } from "~/components/Card";
+import { Box, Flex } from "~/components/Box";
+import { Text } from "~/components/Text";
 
 export default function App() {
   return (
@@ -15,11 +12,14 @@ export default function App() {
         {Array(3)
           .fill(null)
           .map(() => (
-            <Card key={Math.random()}>
+            <Box key={Math.random()}>
               <Button>Click this!</Button>
-            </Card>
+            </Box>
           ))}
       </Flex>
+      <Text level={24} font="mono">
+        beep
+      </Text>
     </>
   );
 }
