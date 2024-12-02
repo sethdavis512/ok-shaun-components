@@ -100,6 +100,16 @@ const baseProperties = defineProperties({
   },
 });
 
+const colorProperties = defineProperties({
+  '@layer': baseLayer,
+  conditions: {
+    lightMode: {},
+    darkMode: { '@media': '(prefers-color-scheme: dark)' },
+  },
+  defaultCondition: ['lightMode', 'darkMode'],
+  properties: primitives,
+});
+
 const responsiveProperties = defineProperties({
   '@layer': responsiveLayer,
   conditions: {
@@ -125,21 +135,11 @@ const interactiveProperties = defineProperties({
   properties: primitives,
 });
 
-const colorProperties = defineProperties({
-  '@layer': baseLayer,
-  conditions: {
-    lightMode: {},
-    darkMode: { '@media': '(prefers-color-scheme: dark)' },
-  },
-  defaultCondition: ['lightMode', 'darkMode'],
-  properties: primitives,
-});
-
 export const sprinkles = createSprinkles(
   baseProperties,
+  colorProperties,
   responsiveProperties,
   interactiveProperties,
-  colorProperties,
 );
 
 export type Sprinkles = Parameters<typeof sprinkles>[0];
